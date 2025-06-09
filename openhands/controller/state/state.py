@@ -137,7 +137,7 @@ class State:
             )
             pickled = base64.b64decode(encoded)
             state = pickle.loads(pickled)
-        except FileNotFoundError:
+        except FileNotFoundError as e:
             # if user_id is provided, we are in a saas/remote use case
             # and we need to check if the state is in the old directory.
             if user_id:
@@ -148,10 +148,10 @@ class State:
             else:
                 raise FileNotFoundError(
                     f'Could not restore state from session file for sid: {sid}'
-                )
+                ) from e
         except Exception as e:
             logger.debug(f'Could not restore state from session: {e}')
-            raise e
+            raise
 
         # update state
         if state.agent_state in RESUMABLE_STATES:

@@ -32,6 +32,6 @@ class SecurityConfig(BaseModel):
         try:
             security_mapping['security'] = cls.model_validate(data)
         except ValidationError as e:
-            raise ValueError(f'Invalid security configuration: {e}')
+            raise ValueError(f'Invalid security configuration: {e}') from e
 
         return security_mapping

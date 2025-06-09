@@ -249,4 +249,4 @@ def create_condenser_config(condenser_type: str, data: dict) -> CondenserConfig:
         # which can cause compatibility issues with different pydantic versions
         raise ValueError(
             f"Validation failed for condenser type '{condenser_type}': {e}"
-        )
+        ) from e

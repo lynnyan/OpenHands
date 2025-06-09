@@ -178,7 +178,7 @@ def load_from_toml(cfg: AppConfig, toml_file: str = 'config.toml') -> None:
             )
         except ValueError:
             # Re-raise ValueError from SecurityConfig.from_toml_section
-            raise ValueError('Error in [security] section in config.toml')
+            raise ValueError('Error in [security] section in config.toml') from None
 
     # Process sandbox section if present
     if 'sandbox' in toml_config:
@@ -193,7 +193,7 @@ def load_from_toml(cfg: AppConfig, toml_file: str = 'config.toml') -> None:
             )
         except ValueError:
             # Re-raise ValueError from SandboxConfig.from_toml_section
-            raise ValueError('Error in [sandbox] section in config.toml')
+            raise ValueError('Error in [sandbox] section in config.toml') from None
 
     # Process condenser section if present
     if 'condenser' in toml_config:
