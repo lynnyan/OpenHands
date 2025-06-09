@@ -126,15 +126,15 @@ class S3FileStore(FileStore):
             elif e.response['Error']['Code'] == 'NoSuchKey':
                 raise FileNotFoundError(
                     f"Error: The object key '{path}' does not exist in bucket '{self.bucket}'."
-                )
+                ) from e
             else:
                 raise FileNotFoundError(
                     f"Error: Failed to delete key '{path}' from bucket '{self.bucket}': {e}"
-                )
+                ) from e
         except Exception as e:
             raise FileNotFoundError(
                 f"Error: Failed to delete key '{path}' from bucket '{self.bucket}: {e}"
-            )
+            ) from e
 
     def _ensure_url_scheme(self, secure: bool, url: str | None) -> str | None:
         if not url:

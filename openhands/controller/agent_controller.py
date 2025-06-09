@@ -683,7 +683,6 @@ class AgentController:
 
         # unset delegate so parent can resume normal handling
         self.delegate = None
-        self.delegateAction = None
 
     async def _step(self) -> None:
         """Executes a single step of the parent or delegate agent. Detects stuck agents and limits on the number of iterations and the task budget."""
@@ -763,9 +762,9 @@ class AgentController:
                         self._handle_long_context_error()
                         return
                     else:
-                        raise LLMContextWindowExceedError()
+                        raise LLMContextWindowExceedError() from e
                 else:
-                    raise e
+                    raise
 
         if action.runnable:
             if self.state.confirmation_mode and (

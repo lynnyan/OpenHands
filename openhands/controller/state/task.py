@@ -182,15 +182,15 @@ class RootTask(Task):
         if id == '':
             return self
         if len(self.subtasks) == 0:
-            raise LLMMalformedActionError('Task does not exist:' + id)
+            raise LLMMalformedActionError('Task does not exist:' + id) from None
         try:
             parts = [int(p) for p in id.split('.')]
         except ValueError:
-            raise LLMMalformedActionError('Invalid task id:' + id)
+            raise LLMMalformedActionError('Invalid task id:' + id) from None
         task: Task = self
         for part in parts:
             if part >= len(task.subtasks):
-                raise LLMMalformedActionError('Task does not exist:' + id)
+                raise LLMMalformedActionError('Task does not exist:' + id) from None
             task = task.subtasks[part]
         return task
 

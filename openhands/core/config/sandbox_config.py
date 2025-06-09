@@ -95,6 +95,6 @@ class SandboxConfig(BaseModel):
         try:
             sandbox_mapping['sandbox'] = cls.model_validate(data)
         except ValidationError as e:
-            raise ValueError(f'Invalid sandbox configuration: {e}')
+            raise ValueError(f'Invalid sandbox configuration: {e}') from e
 
         return sandbox_mapping
